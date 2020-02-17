@@ -1,9 +1,13 @@
+![Ojet Logo](https://www.oracle.com/webfolder/technetwork/jet/css/images/logo_jet_256_rich.png)
+
 # Welcome to Christel House Hack-a-thon
 
 ## What - Building some super tools (Oracle JET, Machine Learning, Conversational Chatbot) for use at Christel House
-## When - Mar 6-7, 2020
+## When - Mar 13-14, 2020
 
-This will serve as a starter applicaiton for the next few days of hacking.
+This will serve as a starter application for the next few days of hacking.
+
+Learn Oracle JET [here](http://bit.ly/teach-me-jet)
 
 The following requirements have been identified for the overall application:
 
