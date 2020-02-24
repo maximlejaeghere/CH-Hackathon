@@ -1,7 +1,8 @@
 /**
  * @license
- * Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ * Copyright (c) 2014, 2020, Oracle and/or its affiliates.
  * The Universal Permissive License (UPL), Version 1.0
+ * @ignore
  */
 /*
  * Your application specific code will go here
@@ -9,9 +10,21 @@
 define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojrouter', 'ojs/ojarraydataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element', 'ojs/ojknockout'],
   function(ko, moduleUtils, ResponsiveUtils, ResponsiveKnockoutUtils, Router, ArrayDataProvider, KnockoutTemplateUtils) {
      function ControllerViewModel() {
-       var self = this;
+        var self = this;
 
-       self.KnockoutTemplateUtils = KnockoutTemplateUtils;
+        self.KnockoutTemplateUtils = KnockoutTemplateUtils;
+
+        // Handle announcements sent when pages change, for Accessibility.
+        self.manner = ko.observable('polite');
+        self.message = ko.observable();
+        document.getElementById('globalBody').addEventListener('announce', announcementHandler, false);
+
+        function announcementHandler(event) {
+          setTimeout(function() {
+            self.message(event.detail.message);
+            self.manner(event.detail.manner);
+          }, 200);
+        };
 
       // Media queries for repsonsive layouts
       var smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
@@ -22,27 +35,18 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
        self.router.configure({
          'dashboard': {label: 'Dashboard', isDefault: true},
          'books': {label: 'Books'},
-         'educators': {label: 'educators'},
-         'learners': {label: 'learners'}
+         'educators': {label: 'Educators'},
+         'learners': {label: 'Learners'}
        });
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
 
-      self.moduleConfig = ko.observable({'view':[], 'viewModel':null});
-
-      self.loadModule = function() {
-        ko.computed(function() {
+      self.loadModule = function () {
+        self.moduleConfig = ko.pureComputed(function () {
           var name = self.router.moduleConfig.name();
           var viewPath = 'views/' + name + '.html';
           var modelPath = 'viewModels/' + name;
-          var masterPromise = Promise.all([
-            moduleUtils.createView({'viewPath':viewPath}),
-            moduleUtils.createViewModel({'viewModelPath':modelPath})
-          ]);
-          masterPromise.then(
-            function(values){
-              self.moduleConfig({'view':values[0],'viewModel':values[1]});
-            }
-          );
+          return moduleUtils.createConfig({ viewPath: viewPath,
+            viewModelPath: modelPath, params: { parentRouter: self.router } });
         });
       };
 
@@ -61,9 +65,9 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
 
       // Header
       // Application Name used in Branding Area
-      self.appName = ko.observable("Christel House Hack-a-thon");
+      self.appName = ko.observable("App Name");
       // User Info used in Global Navigation area
-      self.userLogin = ko.observable("educator@christelhouse.org");
+      self.userLogin = ko.observable("john.hancock@oracle.com");
 
       // Footer
       function footerLink(name, id, linkTarget) {
