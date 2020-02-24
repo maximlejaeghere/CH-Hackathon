@@ -5,7 +5,9 @@
 <div class="oj-hybrid-padding">
   <h1>Books Library</h1>
   <div>
-    <p>Christel House has a need to organise the process around cataloging and checking out books from the library. Currently the process is not accurate and does not allow for notifications and reporting on the books library information.</p>
+    <p>Christel House has a need to organise the process around cataloging and checking out books from the library.
+      Currently the process is not accurate and does not allow for notifications and reporting on the books library
+      information.</p>
     <ul>
       <li>Integrate with http rest services for CRUD actions</li>
       <li>Add books through the Google Books API based on ISBN number from book covers</li>
@@ -15,6 +17,30 @@
       <li>Chat Bot to interact and conversational search / investigate the database of books</li>
 
     </ul>
-      To change the content of this section, you will make edits to the books.html file located in the /js/views folder.
+    To change the content of this section, you will make edits to the books.html file located in the /js/views folder.
+  </div>
+  <div>
+    <div>Book Search</div>
+    <oj-label style="width:200px" for="text-input">Enter ISBN</oj-label>
+    <oj-input-text value="{{isbn}}" id="text-input"></oj-input-text>
+    <br />
+    <oj-button id='Search' disabled="false" on-oj-action='[[buttonClick]]' display="all">Search</oj-button>
+
+
+    <oj-form-layout max-columns='2' label-edge='start' label-width="50%">
+      <oj-label-value>
+        <oj-label slot="label" for="my1">Title</oj-label>
+        <oj-input-text slot="value" id="my1" value="{{book.title}}"></oj-input-text>
+      </oj-label-value>
+      <oj-label-value>
+        <oj-label slot="label" for="my2">Sub Title</oj-label>
+        <oj-input-text slot="value" id="my2"></oj-input-text>
+      </oj-label-value>
+      <oj-label-value>
+        <oj-label slot="label" for="my3">Authors</oj-label>
+        <oj-input-text slot="value" id="my3"></oj-input-text>
+      </oj-label-value>
+    </oj-form-layout>
+
   </div>
 </div>
