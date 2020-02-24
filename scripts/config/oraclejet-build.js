@@ -1,5 +1,5 @@
 /**
-  Copyright (c) 2015, 2019, Oracle and/or its affiliates.
+  Copyright (c) 2015, 2020, Oracle and/or its affiliates.
   The Universal Permissive License (UPL), Version 1.0
 */
 'use strict';
@@ -69,11 +69,10 @@ module.exports = function () {
  * This task reads the release paths from the mainReleasePaths json file and injects the path configuration in main.js when run in release mode.
  */
     // injectPaths: paths => ({
-    //  startTag: '//injector:mainReleasePaths',
-    //  endTag: '//endinjector',
+    //  startTag: '// injector:mainReleasePaths',
+    //  endTag: '// endinjector',
     //  mainJs: 'path to mainjs',
     //  destMainJs: 'path to the inject destination',
-    //  mainReleasePaths: 'path to the main-release-paths.json'
     // }),
 
 /**
