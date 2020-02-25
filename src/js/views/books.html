@@ -26,21 +26,30 @@
     <br />
     <oj-button id='Search' disabled="false" on-oj-action='[[buttonClick]]' display="all">Search</oj-button>
 
+   
 
     <oj-form-layout max-columns='2' label-edge='start' label-width="50%">
-      <oj-label-value>
-        <oj-label slot="label" for="my1">Title</oj-label>
-        <oj-input-text slot="value" id="my1" value="{{book.title}}"></oj-input-text>
-      </oj-label-value>
-      <oj-label-value>
-        <oj-label slot="label" for="my2">Sub Title</oj-label>
-        <oj-input-text slot="value" id="my2"></oj-input-text>
-      </oj-label-value>
-      <oj-label-value>
-        <oj-label slot="label" for="my3">Authors</oj-label>
-        <oj-input-text slot="value" id="my3"></oj-input-text>
-      </oj-label-value>
-    </oj-form-layout>
+      <oj-bind-for-each data="[[books]]">
+          <template>
+            <div >
+              <div class="book-title">
+                <oj-bind-text value="[[$current.data.volumeInfo.title]]"></oj-bind-text>
+              </div>
+              <span class="book-image">
+                <img :src="[[$current.data.volumeInfo.imageLinks.smallThumbnail]]"/> 
+              </span>
+              <div>
+              <oj-bind-for-each data="[[$current.data.volumeInfo.authors]]">
+                <template>
+                  <span>By: </span><oj-bind-text value="[[$current.data]]"></oj-bind-text>
+                </template>
+              </oj-bind-for-each>
+            </div>
+            </div>
+          </template>
+        </oj-bind-for-each>
+    </oj-form-layout> 
 
-  </div>
+
+
 </div>

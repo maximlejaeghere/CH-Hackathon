@@ -14,3 +14,13 @@
   height: 1px;
   overflow: hidden;
 }
+
+.book-title {
+  font-weight: 700;
+  font-size: 14px;
+  width: 250px;
+}
+
+.book-image {
+
+}

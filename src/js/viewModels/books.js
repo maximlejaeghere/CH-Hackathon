@@ -6,7 +6,8 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['knockout', 'ojs/ojbootstrap', 'promise', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext', 'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout'],
+define(['knockout', 'ojs/ojbootstrap', 'promise', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext',
+ 'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils', 'ojs/ojarraydataprovider'],
   function (ko, Bootstrap) {
 
     function AboutViewModel() {
@@ -19,7 +20,7 @@ define(['knockout', 'ojs/ojbootstrap', 'promise', 'ojs/ojknockout', 'ojs/ojbutto
 
         console.log(url);
 
-        let book = self.book;
+        let books = self.books;
         let title = self.title;
 
         fetch(url).then((response) => {
@@ -27,9 +28,8 @@ define(['knockout', 'ojs/ojbootstrap', 'promise', 'ojs/ojknockout', 'ojs/ojbutto
             let totalItems = data.totalItems;
             if (totalItems > 0) {
 
-              book(data.items[0].volumeInfo);
-              title(data.items[0].volumeInfo.title);
-              console.log(book._latestValue.title);
+              books(data.items);
+              console.log(books._latestValue.items);
             }
           })
         });
@@ -38,8 +38,10 @@ define(['knockout', 'ojs/ojbootstrap', 'promise', 'ojs/ojknockout', 'ojs/ojbutto
 
       }
 
-      self.title = ko.observable('No title')
-      self.book = ko.observable();
+   //   self.bookObjs = JSON.parse('[ { "volumeInfo": { "title": "no title" }}]');
+
+ 
+      self.books = ko.observableArray([ { volumeInfo: { title: "no title", authors: [  "Some Author"   ], imageLinks: { smallThumbnail: ""}}}]);
       self.isbn = ko.observable('1631869272');
 
       this.buttonClick = function (event) {
