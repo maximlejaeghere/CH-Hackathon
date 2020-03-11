@@ -6,53 +6,67 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['knockout', 'ojs/ojbootstrap', 'promise', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext',
- 'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils', 'ojs/ojarraydataprovider'],
+define(['knockout', 'ojs/ojbootstrap', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext', 'composites/book-tile/loader',
+  'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils', 'ojs/ojarraydataprovider'],
   function (ko, Bootstrap) {
 
     function AboutViewModel() {
+
       var self = this;
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
       self.clickedButton = function (isbn) {
 
-        let url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`
+        let json = localStorage.getItem(`ch-${isbn}`);
+        if (json != null && json !== "") {
+          data = JSON.parse(json);
+          self.books(data.items);
+        } else {
 
-        console.log(url);
+          let url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+          let postUrl = `https://hackathonbackend.steltixlabs.com/postBooks`;
 
-        let books = self.books;
-        let title = self.title;
+          let books = self.books;
+          fetch(url).then((response) => {
+            response.json().then((data) => {
+              let totalItems = data.totalItems;
+              if (totalItems > 0) {
+                data.items.forEach(item => {
+                  self.books.push(item);
+                  item.APIKEY = 'somestuff'
+                  fetch(postUrl, {
+                    body: JSON.stringify(item.volumeInfo),
+                    method: 'post'
+                  }).then(r => console.log(r)).catch(r => console.log(r));
+                });
+              }
 
-        fetch(url).then((response) => {
-          response.json().then((data) => {
-            let totalItems = data.totalItems;
-            if (totalItems > 0) {
-
-              books(data.items);
-              console.log(books._latestValue.items);
-            }
-          })
-        });
-
-
-
+            })
+          });
+        }
       }
 
-   //   self.bookObjs = JSON.parse('[ { "volumeInfo": { "title": "no title" }}]');
+      self.books = ko.observableArray([]);
 
- 
-      self.books = ko.observableArray([ { volumeInfo: { title: "no title", authors: [  "Some Author"   ], imageLinks: { smallThumbnail: ""}}}]);
-      self.isbn = ko.observable('1631869272');
+      let url = `https://hackathonbackend.steltixlabs.com/getBooks`;
+      fetch(url).then((response) => {
+        response.json().then((data) => {
+          let totalItems = data.length;
+          if (totalItems > 0) {
+            data.forEach(item => {
+              self.books.push(item);
+            });
+          }
+        });
+      });
+
+      self.isbn = ko.observable("1465479031");
+
 
       this.buttonClick = function (event) {
         this.clickedButton(this.isbn._latestValue);
         return true;
       }.bind(this);
-
-
-      this.handleValueChanged = function (event) {
-        console.log(event);
-      }
 
       /**
        * Optional ViewModel method invoked after the View is inserted into the

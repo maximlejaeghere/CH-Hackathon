@@ -24,32 +24,26 @@
     <oj-label style="width:200px" for="text-input">Enter ISBN</oj-label>
     <oj-input-text value="{{isbn}}" id="text-input"></oj-input-text>
     <br />
-    <oj-button id='Search' disabled="false" on-oj-action='[[buttonClick]]' display="all">Search</oj-button>
+    <oj-button id='Search and Add' disabled="false" on-oj-action='[[buttonClick]]' display="all">Search</oj-button>
 
-   
 
-    <oj-form-layout max-columns='2' label-edge='start' label-width="50%">
+
+
+    <oj-form-layout max-columns='4' label-edge='start' label-width="50%">
       <oj-bind-for-each data="[[books]]">
-          <template>
-            <div >
-              <div class="book-title">
-                <oj-bind-text value="[[$current.data.volumeInfo.title]]"></oj-bind-text>
-              </div>
-              <span class="book-image">
-                <img :src="[[$current.data.volumeInfo.imageLinks.smallThumbnail]]"/> 
-              </span>
-              <div>
-              <oj-bind-for-each data="[[$current.data.volumeInfo.authors]]">
-                <template>
-                  <span>By: </span><oj-bind-text value="[[$current.data]]"></oj-bind-text>
-                </template>
-              </oj-bind-for-each>
-            </div>
-            </div>
-          </template>
-        </oj-bind-for-each>
-    </oj-form-layout> 
+
+        <template>
+          <oj-bind-if test="[[$current.data !== null]]">
+            <book-tile book="[[$current.data]]"></book-tile>
+          </oj-bind-if>
+          <oj-bind-if test="[[$current.data === null]]">
+            <span>No volume found for the ISBN number.</span>
+          </oj-bind-if>
+        </template>
+
+      </oj-bind-for-each>
+    </oj-form-layout>
 
 
 
-</div>
+  </div>
