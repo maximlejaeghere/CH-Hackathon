@@ -14,9 +14,17 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
 
       var self = this;
       self.clickedButton = function (isbn) {
-          bookService.getBook(isbn).then(item => {
+
+        const regex = /-/gi;
+
+        isbn = isbn.replace(regex, '');
+
+        bookService.getBook(isbn).then(item => {
+          let book = self.books._latestValue.find(x => x._id === item._id);
+          if (book == null || book === undefined) {
             self.books.push(item);
-          });
+          }
+        });
       }
 
       self.books = ko.observableArray([]);
