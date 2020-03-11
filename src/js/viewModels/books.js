@@ -32,8 +32,7 @@ define(['knockout', 'ojs/ojbootstrap', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/oj
               let totalItems = data.totalItems;
               if (totalItems > 0) {
                 data.items.forEach(item => {
-                  self.books.push(item);
-                  item.APIKEY = 'somestuff'
+                  self.books.push(item.volumeInfo);
                   fetch(postUrl, {
                     body: JSON.stringify(item.volumeInfo),
                     method: 'post'
