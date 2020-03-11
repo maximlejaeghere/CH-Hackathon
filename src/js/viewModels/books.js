@@ -6,57 +6,27 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['knockout', 'ojs/ojbootstrap', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext', 'composites/book-tile/loader',
+define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext', 'component/book-tile/loader',
   'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils', 'ojs/ojarraydataprovider'],
-  function (ko, Bootstrap) {
+  function (ko, bookService, Bootstrap) {
 
     function AboutViewModel() {
 
       var self = this;
-      // Below are a set of the ViewModel methods invoked by the oj-module component.
-      // Please reference the oj-module jsDoc for additional information.
       self.clickedButton = function (isbn) {
-
-        let json = localStorage.getItem(`ch-${isbn}`);
-        if (json != null && json !== "") {
-          data = JSON.parse(json);
-          self.books(data.items);
-        } else {
-
-          let url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
-          let postUrl = `https://hackathonbackend.steltixlabs.com/postBooks`;
-
-          let books = self.books;
-          fetch(url).then((response) => {
-            response.json().then((data) => {
-              let totalItems = data.totalItems;
-              if (totalItems > 0) {
-                data.items.forEach(item => {
-                  self.books.push(item.volumeInfo);
-                  fetch(postUrl, {
-                    body: JSON.stringify(item.volumeInfo),
-                    method: 'post'
-                  }).then(r => console.log(r)).catch(r => console.log(r));
-                });
-              }
-
-            })
+          bookService.getBook(isbn).then(item => {
+            self.books.push(item);
           });
-        }
       }
 
       self.books = ko.observableArray([]);
 
-      let url = `https://hackathonbackend.steltixlabs.com/getBooks`;
-      fetch(url).then((response) => {
-        response.json().then((data) => {
-          let totalItems = data.length;
-          if (totalItems > 0) {
-            data.forEach(item => {
-              self.books.push(item);
-            });
-          }
-        });
+      bookService.getBooks().then(data => {
+        if (data.length > 0) {
+          data.forEach(item => {
+            self.books.push(item);
+          });
+        }
       });
 
       self.isbn = ko.observable("1465479031");
