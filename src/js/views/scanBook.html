@@ -1,0 +1,21 @@
+<!--
+ Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+ <div class="oj-hybrid-padding">
+    <h1>Add Book</h1>
+    <div>
+      <div>Enter or Scan ISBN Number</div>
+      <oj-input-text value="{{isbn}}" id="text-input"></oj-input-text>
+      <br />
+      <oj-bind-if test="[[hasBook() == true]]">
+         <book-tile book="{{scannedBook}}"></book-tile> 
+         <br />
+         <span>If incorrect book then.</span><oj-button id='Search and Add' disabled="false" on-oj-action='[[buttonClick]]' display="all">Remove</oj-button>
+      </oj-bind-if>
+       <oj-bind-if test="[[hasBook() == false]]">
+        <span>No volume found for the ISBN number.</span>
+      </oj-bind-if> 
+
+      
+    </div>
