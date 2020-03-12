@@ -4,55 +4,71 @@
 */
 'use strict';
 define(
-    ['knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'ojs/ojknockout'], function (ko, componentStrings, Context) {
-    
+  ['knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'ojs/ojknockout'], function (ko, componentStrings, Context) {
+
     function BookTileComponentModel(context) {
-        var self = this;
-        
-        context.props.then(function (properties) {
-          
-          if (properties.book) {
-            self.book = properties.book;
+      var self = this;
+
+      context.props.then(function (properties) {
+
+        if (properties.book) {
+          self.updateBook(properties.book);
         }
       });
 
-      self.book = ko.observable({ title: "no title", authors: [  "Some Author"   ], imageLinks: { smallThumbnail: ""}})
+      self.title = ko.observable("No Title");
+      self.authors = ko.observableArray([]);
+      self.smallThumbnail = ko.observable("");
+      self.categories = ko.observable([]);
 
-        //At the start of your viewModel constructor
-        var busyContext = Context.getContext(context.element).getBusyContext();
-        var options = {"description": "Web Component Startup - Waiting for data"};
-        self.busyResolve = busyContext.addBusyState(options);
 
-        self.composite = context.element;
+      var busyContext = Context.getContext(context.element).getBusyContext();
+      var options = { "description": "Web Component Startup - Waiting for data" };
+      self.busyResolve = busyContext.addBusyState(options);
 
-        //Example observable
-       
-        self.properties = context.properties;
-        self.res = componentStrings['book-tile'];
-        // Example for parsing context properties
-        // if (context.properties.name) {
-        //     parse the context properties here
-        // }
+      self.composite = context.element;
 
-        //Once all startup and async activities have finished, relocate if there are any async activities
-        self.busyResolve();
+      //Example observable
+
+      self.properties = context.properties;
+      self.res = componentStrings['book-tile'];
+      self.busyResolve();
+
     };
-    
+
+    BookTileComponentModel.prototype.updateBook = function(book) {
+      this.title(book.title);
+      this.smallThumbnail(book.imageLinks.smallThumbnail);
+      this.authors(book.authors);
+      if (book.categories)
+      this.categories(book.categories);
+
+    }
+
     //Lifecycle methods - uncomment and implement if necessary 
-    //ExampleComponentModel.prototype.activated = function(context){
-    //};
+    BookTileComponentModel.prototype.activated = function (context) {
+      // console.log(context);
+    };
 
-    //ExampleComponentModel.prototype.connected = function(context){
-    //};
+    BookTileComponentModel.prototype.connected = function (context) {
 
-    //ExampleComponentModel.prototype.bindingsApplied = function(context){
-    //};
+    };
+
+    BookTileComponentModel.prototype.bindingsApplied = function (context) {
+
+    };
 
     //ExampleComponentModel.prototype.disconnect = function(context){
     //};
 
-    //ExampleComponentModel.prototype.propertyChanged = function(context){
-    //};
+    BookTileComponentModel.prototype.propertyChanged = function (context) {
+
+      if (context.property == "book") {
+        //   // this.book(context.value);
+        //  this.book = context.value;
+        this.updateBook(context.value);
+      }
+    };
 
     return BookTileComponentModel;
-});
+  });

@@ -4,46 +4,57 @@
  -->
 <div class="oj-hybrid-padding">
   <h1>Books Library</h1>
-  <!-- <div>
-    <p>Christel House has a need to organise the process around cataloging and checking out books from the library.
-      Currently the process is not accurate and does not allow for notifications and reporting on the books library
-      information.</p>
-    <ul>
-      <li>Integrate with http rest services for CRUD actions</li>
-      <li>Add books through the Google Books API based on ISBN number from book covers</li>
-      <li>Add more manual information to each book</li>
-      <li>Track learners borrowing of books with a check out system</li>
-      <li>Reports to show books that have been checked out</li>
-      <li>Chat Bot to interact and conversational search / investigate the database of books</li>
 
-    </ul>
-    To change the content of this section, you will make edits to the books.html file located in the /js/views folder.
-  </div> -->
   <div>
     <div>Book Search</div>
-    <oj-label style="width:200px" for="text-input">Enter ISBN</oj-label>
-    <oj-input-text value="{{isbn}}" id="text-input"></oj-input-text>
-    <br />
-    <oj-button id='Search and Add' disabled="false" on-oj-action='[[buttonClick]]' display="all">Search</oj-button>
-
-
-
 
     <oj-form-layout max-columns='4' label-edge='start' label-width="50%">
-      <oj-bind-for-each data="[[books]]">
 
-        <template>
-          <oj-bind-if test="[[$current.data !== null]]">
-            <book-tile book="[[$current.data]]"></book-tile>
-          </oj-bind-if>
-          <oj-bind-if test="[[$current.data === null]]">
-            <span>No volume found for the ISBN number.</span>
-          </oj-bind-if>
-        </template>
+      <div class="searchBlock" class="oj-sm-margin-4x-end oj-flex-item">
 
-      </oj-bind-for-each>
+        <oj-label style="width:200px" for="text-input-title">Title</oj-label>
+        <oj-input-text value="{{title}}" id="text-input-title"></oj-input-text>
+      </div>
+
+      <div class="searchBlock" class="oj-sm-margin-4x-end oj-flex-item">
+
+        <oj-label style="width:200px" for="text-input-author">Author</oj-label>
+        <oj-input-text value="{{author}}" id="text-input-author"></oj-input-text>
+      </div>
+
+      <div class="searchBlock" class="oj-sm-margin-4x-end oj-flex-item">
+
+        <oj-label style="width:200px" for="text-input-categories">Categories</oj-label>
+        <oj-input-text value="{{categories}}" id="text-input-categories"></oj-input-text>
+      </div>
+
+      <div class="searchBlock" class="oj-sm-margin-4x-end oj-flex-item">
+
+        <oj-label style="width:200px" for="text-input-description">Description</oj-label>
+        <oj-input-text value="{{description}}" id="text-input-description"></oj-input-text>
+      </div>
     </oj-form-layout>
 
+ 
 
-
+    <br />
+    <oj-button id='Search' disabled="false" on-oj-action='[[buttonClick]]' display="all">Search</oj-button>
   </div>
+
+
+  <oj-form-layout max-columns='4' label-edge='start' label-width="50%">
+    <oj-bind-for-each data="[[books]]">
+
+      <template>
+        <oj-bind-if test="[[$current.data !== null]]">
+          <book-tile book="[[$current.data]]"></book-tile>
+        </oj-bind-if>
+        <oj-bind-if test="[[$current.data === null]]">
+          <span>No volume found for the ISBN number.</span>
+        </oj-bind-if>
+      </template>
+
+    </oj-bind-for-each>
+  </oj-form-layout>
+
+</div>

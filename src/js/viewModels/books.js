@@ -13,21 +13,29 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
     function AboutViewModel() {
 
       var self = this;
-      self.clickedButton = function (isbn) {
+      self.clickedButton = function () {
 
-        const regex = /-/gi;
+        self.books.removeAll();
 
-        isbn = isbn.replace(regex, '');
+        let title = this.title();
+        let author = this.author();
+        let desc = this.description();
+        let categories = this.categories();
 
-        bookService.getBook(isbn).then(item => {
-          let book = self.books._latestValue.find(x => x._id === item._id);
-          if (book == null || book === undefined) {
-            self.books.push(item);
+        bookService.searchBooks(title, author, desc, categories).then(data => {
+            
+          if (data.length > 0) {
+            data.forEach(item => {
+              self.books.push(item);
+            });
           }
+          
         });
       }
 
       self.books = ko.observableArray([]);
+
+
 
       bookService.getBooks().then(data => {
         if (data.length > 0) {
@@ -37,11 +45,14 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
         }
       });
 
-      self.isbn = ko.observable("1465479031");
+      self.title = ko.observable("");
+      self.author = ko.observable("");
+      self.categories = ko.observable("");
+      self.description = ko.observable("");
 
 
       this.buttonClick = function (event) {
-        this.clickedButton(this.isbn._latestValue);
+        this.clickedButton();
         return true;
       }.bind(this);
 
