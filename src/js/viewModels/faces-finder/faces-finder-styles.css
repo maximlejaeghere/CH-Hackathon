@@ -1,0 +1,8 @@
+faces-finder:not(.oj-complete){
+  visibility: hidden;
+}
+
+faces-finder{
+	min-height: 50px;
+	width: 50px;
+}
