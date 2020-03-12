@@ -6,7 +6,7 @@
 /*
  * Your customer ViewModel code goes here
  */
-define([],
+define(['./faces-finder/loader'],
  function() {
 
     function CustomerViewModel() {
