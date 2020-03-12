@@ -1,3 +1,4 @@
+
 /node_modules
 /bower_components
 /web
@@ -13,3 +14,9 @@ hybrid/plugins/*
 
 .DS_Store
 Thumbs.db
+
+node_modules
+themes
+web
+staged-themes
+

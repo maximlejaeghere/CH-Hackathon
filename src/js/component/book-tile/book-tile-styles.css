@@ -1,0 +1,37 @@
+book-tile:not(.oj-complete){
+  visibility: hidden;
+}
+
+/* book-tile {
+
+} */
+
+.book-block {
+		width: 250px; 
+	height: 250px; 
+	border: 1px solid silver;
+	box-shadow: 2px 2px lightgray;
+}
+
+.book-title {
+	font-weight: 700;
+	font-size: 14px;
+	width: 250px;
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+  
+  .book-image {
+	width: 100px;
+	box-shadow: 4px 4px lightgray;
+	margin-left: 75px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+  }
+
+
+
+.book-heading {
+	font-weight: 600;
+}
