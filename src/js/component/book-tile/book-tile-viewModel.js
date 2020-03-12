@@ -8,41 +8,50 @@ define(
 
     function BookTileComponentModel(context) {
       var self = this;
+      // self.deleteEvent = document.createEvent('Event');
+      // self.deleteEvent.initEvent('delete', true, true);
 
       context.props.then(function (properties) {
 
         if (properties.book) {
           self.updateBook(properties.book);
         }
+
+        
       });
 
       self.title = ko.observable("No Title");
       self.authors = ko.observableArray([]);
       self.smallThumbnail = ko.observable("");
       self.categories = ko.observable([]);
-
-
-      var busyContext = Context.getContext(context.element).getBusyContext();
+      self.bookId = ko.observable("");
+      
+     var busyContext = Context.getContext(context.element).getBusyContext();
       var options = { "description": "Web Component Startup - Waiting for data" };
       self.busyResolve = busyContext.addBusyState(options);
-
       self.composite = context.element;
 
       //Example observable
+
+      // this.deleteBook = function (event) {
+      //   event.currentTarget.parentElement.parentElement.dispatchEvent(this.deleteEvent);
+      //   return true;
+      // }.bind(this);
 
       self.properties = context.properties;
       self.res = componentStrings['book-tile'];
       self.busyResolve();
 
+
     };
 
     BookTileComponentModel.prototype.updateBook = function(book) {
+      this.bookId (book._id);
       this.title(book.title);
       this.smallThumbnail(book.imageLinks.smallThumbnail);
       this.authors(book.authors);
       if (book.categories)
       this.categories(book.categories);
-
     }
 
     //Lifecycle methods - uncomment and implement if necessary 
