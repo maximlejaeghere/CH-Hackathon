@@ -20,31 +20,6 @@ On each sub page you will find more information and requirements for that area.
 
 To change the content of this section, you will make edits to the dashboard.html file located in the /js/views folder.
 
-# APIs
-
-## Books
-
-https://hackathonbackend.steltixlabs.com/getBooks - this GET request will return an array of all books as JSON. 
-
-https://hackathonbackend.steltixlabs.com/searchBook?categories=Psychology - this GET request can take multiple params (any keys from the Book object) and will return an array of Book objects that meet the search criteria. Withno params this returns all books in the system.
-
-## Attendance
-
-https://hackathonbackend.steltixlabs.com/getCheckins - this GET returns all educator check-in records in the system
-
-https://hackathonbackend.steltixlabs.com/postCheckin - this POST accepts JSON for a check-in record
-
-https://hackathonbackend.steltixlabs.com/getAbsenses - this GET returns all learner absent records in the system
-
-https://hackathonbackend.steltixlabs.com/postAbsenses - this POST accepts JSON for a Learner absent record
-
-## Common
-
-https://hackathonbackend.steltixlabs.com/addPerson - this POST accepts JSON to create a Person record
-
-https://hackathonbackend.steltixlabs.com/getPersons - this GET returns all person records in the system
-
-https://hackathonbackend.steltixlabs.com/updatePerson - this POST accepts JSON and updates the existing person record with the new inputted record values
 
 # Books Library
 
