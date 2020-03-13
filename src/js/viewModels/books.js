@@ -56,6 +56,14 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
         return true;
       }.bind(this);
 
+      this.deleteBook = function (event) {
+        let id =  event.currentTarget.book._id;
+        bookService.deleteBook(id).then(r => {
+          self.books.remove(x => x._id == id)
+        });
+        return true;
+      }.bind(this);
+
       /**
        * Optional ViewModel method invoked after the View is inserted into the
        * document DOM.  The application can put logic that requires the DOM being

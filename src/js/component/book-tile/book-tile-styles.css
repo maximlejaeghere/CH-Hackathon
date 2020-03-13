@@ -14,9 +14,9 @@ book-tile:not(.oj-complete){
 }
 
 .book-title {
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 14px;
-	width: 250px;
+	width: 200px;
 	white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -34,4 +34,13 @@ book-tile:not(.oj-complete){
 
 .book-heading {
 	font-weight: 600;
+}
+
+.delete-button-icon {
+	color: red !important;
+	
+}
+
+.delete-button {
+	float: right;
 }

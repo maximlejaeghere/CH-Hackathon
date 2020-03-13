@@ -47,7 +47,7 @@
 
       <template>
         <oj-bind-if test="[[$current.data !== null]]">
-          <book-tile book="[[$current.data]]"></book-tile>
+          <book-tile book="[[$current.data]]" on-oj-action="[[deleteBook]]"></book-tile>
         </oj-bind-if>
         <oj-bind-if test="[[$current.data === null]]">
           <span>No volume found for the ISBN number.</span>

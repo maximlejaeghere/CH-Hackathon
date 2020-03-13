@@ -19,8 +19,10 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
                 if (book) {
                     let id = book._id;
                     bookService.deleteBook(id);
+                    self.scannedBook({ title: null, authors: [], imageLinks: { smallThumbnail: "" } });
+                    self.hasBook(false);
                 }
-               
+
             }
 
             self.hasBook = ko.observable(false);
@@ -28,18 +30,22 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
             self.isbn = ko.observable();
 
             self.isbn.subscribe(function (isbn) {
-                const regex = /-/gi;
+                if (isbn.length >= 10) {
+                    const regex = /-/gi;
 
-                isbn = isbn.replace(regex, '');
-
-                bookService.getBook(isbn).then(item => {
-                    if (item !== null) {
-                        self.scannedBook(item);
-                        self.hasBook(true);
-                    }
+                    isbn = isbn.replace(regex, '');
 
 
-                });
+                    bookService.getBook(isbn).then(item => {
+                        self.isbn("");
+                        if (item !== null) {
+                            self.scannedBook(item);
+                            self.hasBook(true);
+                        }
+
+
+                    });
+                }
             });
 
             this.buttonClick = function (event) {

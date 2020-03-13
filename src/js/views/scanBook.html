@@ -9,9 +9,7 @@
       <oj-input-text value="{{isbn}}" id="text-input"></oj-input-text>
       <br />
       <oj-bind-if test="[[hasBook() == true]]">
-         <book-tile book="{{scannedBook}}"></book-tile> 
-         <br />
-         <span>If incorrect book then.</span><oj-button id='Search and Add' disabled="false" on-oj-action='[[buttonClick]]' display="all">Remove</oj-button>
+         <book-tile on-oj-action='[[buttonClick]]' book="{{scannedBook}}"></book-tile> 
       </oj-bind-if>
        <oj-bind-if test="[[hasBook() == false]]">
         <span>No volume found for the ISBN number.</span>
