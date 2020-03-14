@@ -1,0 +1,29 @@
+{
+  "name": "ctb-oda",
+  "version": "1.0.0",
+  "jetVersion": "^8.0.0",
+  "displayName": "A user friendly, translatable name of the component.",
+  "description": "A translatable high-level description for the component.",
+  "properties": {
+    "url": {
+      "type": "string",
+      "description": "link to the chatbot",
+      "writeback": true
+    },
+    "channelId": {
+      "type": "string",
+      "description": "Channel-id of the chatbot",
+      "writeback": true
+    }
+
+  },
+  "methods": {
+
+  }, 
+  "events": {
+
+  }, 
+  "slots": {
+
+  }
+}

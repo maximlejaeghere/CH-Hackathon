@@ -1,0 +1,8 @@
+ctb-oda:not(.oj-complete){
+  visibility: hidden;
+}
+
+ctb-oda{
+	min-height: 50px;
+	width: 50px;
+}

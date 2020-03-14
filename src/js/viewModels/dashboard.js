@@ -6,8 +6,8 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define([],
- function() {
+define(['ctb-oda/loader'],
+  function () {
 
     function DashboardViewModel() {
       var self = this;
@@ -22,14 +22,14 @@ define([],
        * and inserted into the DOM and after the View is reconnected
        * after being disconnected.
        */
-      self.connected = function() {
+      self.connected = function () {
         // Implement if needed
       };
 
       /**
        * Optional ViewModel method invoked after the View is disconnected from the DOM.
        */
-      self.disconnected = function() {
+      self.disconnected = function () {
         // Implement if needed
       };
 
@@ -37,7 +37,7 @@ define([],
        * Optional ViewModel method invoked after transition to the new View is complete.
        * That includes any possible animation between the old and the new View.
        */
-      self.transitionCompleted = function() {
+      self.transitionCompleted = function () {
         // Implement if needed
       };
     }
