@@ -14,7 +14,10 @@ define(
 
       const chatWidgetSettings = {
         URI: context.properties.url,
-        channelId: context.properties.channelId
+        channelId: context.properties.channelId,
+        colors: {"branding": "#F6A91B", "text": "#0A3254", "textLight": "#737373"},
+        enableSpeech: true,
+        enableBotAudioResponse: true
       };
 
       self.connected = function () {
