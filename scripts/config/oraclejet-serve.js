@@ -55,6 +55,7 @@ module.exports = function () {
  * The web specific configurations will override the general configuration. 
  */
     web: {
+      port: 3000
 /**
  * # connect
  * This task launches a web server for web App, does not work for hybrid App.
