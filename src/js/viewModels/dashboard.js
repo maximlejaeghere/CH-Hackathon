@@ -1,3 +1,4 @@
+
 /**
  * @license
  * Copyright (c) 2014, 2019, Oracle and/or its affiliates.
@@ -9,8 +10,11 @@
 define(['ctb-oda/loader'],
   function () {
 
+
     function DashboardViewModel() {
       var self = this;
+      // console.log(JSON.stringify(tf));
+      
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
 

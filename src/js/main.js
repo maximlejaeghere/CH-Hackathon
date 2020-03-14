@@ -12,7 +12,7 @@
 
 // The UserAgent is used to detect IE11. Only IE11 requires ES5.
 (function () {
-
+  
   function _ojIsIE11() {
     var nAgt = navigator.userAgent;
     return nAgt.indexOf('MSIE') !== -1 || !!nAgt.match(/Trident.*rv:11./);
