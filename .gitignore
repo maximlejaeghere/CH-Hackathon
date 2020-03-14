@@ -1,4 +1,7 @@
 
+node_modules/
+
+
 /node_modules
 /bower_components
 /web
@@ -19,4 +22,5 @@ node_modules
 themes
 web
 staged-themes
+
 
