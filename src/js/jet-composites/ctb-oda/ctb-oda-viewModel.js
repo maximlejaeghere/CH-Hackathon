@@ -1,6 +1,7 @@
 'use strict';
 define(
-  ['knockout', 'ojL10n!./resources/nls/ctb-oda-strings', 'ojs/ojcontext', './utilities/web-sdk', 'ojs/ojknockout'], function (ko, componentStrings, Context, oda) {
+  ['knockout', 'ojL10n!./resources/nls/ctb-oda-strings', 'ojs/ojcontext', './utilities/web-sdk', 'ojs/ojknockout','ojs/ojrouter'], 
+  function (ko, componentStrings, Context, oda) {
 
     function ctbOdaComponentModel(context) {
       var self = this;
@@ -17,8 +18,15 @@ define(
         channelId: context.properties.channelId,
         colors: {"branding": "#F6A91B", "text": "#0A3254", "textLight": "#737373"},
         enableSpeech: true,
-        enableBotAudioResponse: true
+        enableBotAudioResponse: true,
+        height: '510px',
+        width: '350px',
+        openChatOnLoad: false,
+        initUserHiddenMessage: "Hello",
+
       };
+      
+      
 
       self.connected = function () {
         initSdk();
@@ -39,6 +47,16 @@ define(
               console.log("Connection failed");
               console.log(reason);
             });
+            Bots.on('message:received', function(message) {
+              console.log(message.messagePayload.text)
+              if (message.messagePayload.text.includes("educators")){
+                oj.Router.rootInstance.go('educators');
+              }
+              if (message.messagePayload.text.includes("language")){
+                oj.Router.rootInstance.go('books');
+              }
+          });
+      
           window[name] = Bots;
         });
       }
