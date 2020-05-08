@@ -6,9 +6,9 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext', 'book-tile/loader',
+define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojpopup', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext', 'book-tile/loader',
   'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils', 'ojs/ojarraydataprovider','ctb-oda/loader'],
-  function (ko, bookService, Bootstrap) {
+  function (AnimationUtils, ko, bookService, Bootstrap) {
 
     function AboutViewModel() {
 
@@ -62,6 +62,28 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
         });
         return true;
       }.bind(this);
+
+      this.startAnimationListener = function (event) {
+        var ui = event.detail;
+        if (event.target.id !== 'popup1') { return; }
+  
+        if (ui.action === 'open') {
+          event.preventDefault();
+          var options = { direction: 'top' };
+          AnimationUtils.slideIn(ui.element, options).then(ui.endCallback);
+        } else if (ui.action === 'close') {
+          event.preventDefault();
+          ui.endCallback();
+        }
+      };
+      this.openListener = function () {
+        var popup = document.getElementById('popup1');
+        popup.open('#btnGo');
+      };
+      this.cancelListener = function () {
+        var popup = document.getElementById('popup1');
+        popup.close();
+      };
 
       /**
        * Optional ViewModel method invoked after the View is inserted into the
