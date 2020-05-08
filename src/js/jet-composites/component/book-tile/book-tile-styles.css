@@ -53,15 +53,22 @@ book-tile:not(.oj-complete){
 
 .custom-button {
 	display: flex;
-	align-content: center;
-	max-height: 32px;
+	max-height: 25px;
 	max-width: 100px;
-	margin-left: 87px;
+	margin-left: 90px;
 	margin-top: 20px;
 	margin-bottom: 20px;
-	position: relative;
 	padding: 6px 12px;
 }
+
+.center {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+  }
 
 
 
