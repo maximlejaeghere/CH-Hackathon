@@ -53,15 +53,20 @@ book-tile:not(.oj-complete){
 
 .custom-button {
 	display: flex;
-	max-height: 25px;
+	align-content: center;
+	max-height: 32px;
 	max-width: 100px;
-	margin-left: 90px;
+	margin-left: 87px;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	position: relative;
 	padding: 6px 12px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of c58075c... loan button on from
 
 
 
