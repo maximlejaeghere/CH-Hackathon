@@ -4,8 +4,8 @@
 */
 'use strict';
 define(
-  ['knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'ojs/ojbootstrap', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojknockout',  'ojs/ojbutton'], 
-  function (ko, componentStrings, Context, Bootstrap, responsiveUtils, responsiveKnockoutUtils) {
+  ['ojs/ojanimation', 'knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'ojs/ojbootstrap', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojknockout',  'ojs/ojbutton'], 
+  function (AnimationUtils, ko, componentStrings, Context, Bootstrap, responsiveUtils, responsiveKnockoutUtils) {
     function BookTileComponentModel(context) {
       var self = this;
       // self.deleteEvent = document.createEvent('Event');
