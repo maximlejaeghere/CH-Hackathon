@@ -29,10 +29,9 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
               self.books.push(item);
             });
           }
-          
+
         });
       }
-
       self.books = ko.observableArray([]);
 
 
