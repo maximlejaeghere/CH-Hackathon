@@ -4,7 +4,8 @@
 */
 'use strict';
 define(
-  ['knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'ojs/ojknockout'], function (ko, componentStrings, Context) {
+  ['ojs/ojanimation','knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'ojs/ojknockout','ojs/ojbutton', 'ctb-oda/loader' ], 
+  function (AnimationUtils, ko, componentStrings, Context) {
 
     function BookTileComponentModel(context) {
       var self = this;
@@ -41,6 +42,28 @@ define(
       self.properties = context.properties;
       self.res = componentStrings['book-tile'];
       self.busyResolve();
+
+      this.startAnimationListener = function (event) {
+        var ui = event.detail;
+        if (event.target.id !== 'popup1') { return; }
+  
+        if (ui.action === 'open') {
+          event.preventDefault();
+          var options = { direction: 'top' };
+          AnimationUtils.slideIn(ui.element, options).then(ui.endCallback);
+        } else if (ui.action === 'close') {
+          event.preventDefault();
+          ui.endCallback();
+        }
+      };
+      this.openListener = function () {
+        var popup = document.getElementById('popup1');
+        popup.open('#btnGo');
+      };
+      this.cancelListener = function () {
+        var popup = document.getElementById('popup1');
+        popup.close();
+      };
 
 
     };

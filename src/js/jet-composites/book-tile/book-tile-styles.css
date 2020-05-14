@@ -52,7 +52,7 @@ book-tile:not(.oj-complete){
 	float: right;
 }
 
-.custom-button {
+#btnGo {
     display: flex;
     max-height: 25px;
     max-width: 100px;
