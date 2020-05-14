@@ -63,27 +63,7 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
         return true;
       }.bind(this);
 
-      this.startAnimationListener = function (event) {
-        var ui = event.detail;
-        if (event.target.id !== 'popup1') { return; }
-  
-        if (ui.action === 'open') {
-          event.preventDefault();
-          var options = { direction: 'top' };
-          AnimationUtils.slideIn(ui.element, options).then(ui.endCallback);
-        } else if (ui.action === 'close') {
-          event.preventDefault();
-          ui.endCallback();
-        }
-      };
-      this.openListener = function () {
-        var popup = document.getElementById('popup1');
-        popup.open('#btnGo');
-      };
-      this.cancelListener = function () {
-        var popup = document.getElementById('popup1');
-        popup.close();
-      };
+     
 
       /**
        * Optional ViewModel method invoked after the View is inserted into the
