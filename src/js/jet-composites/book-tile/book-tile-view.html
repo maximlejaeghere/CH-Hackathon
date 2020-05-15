@@ -1,64 +1,74 @@
 <div class="book-block">
-  
-    <oj-button chroming="borderless" id='solidPushIcon' class="delete-button" display="icons">
-      <span slot='startIcon' class="oj-fwk-icon oj-fwk-icon-cross02 delete-button-icon"></span>
-      Delete Book
-    </oj-button>
 
-    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
-          
-      <div id="popupWrapper">
-        <oj-popup id="popup1" class="demo-popup"
-          tail="none" position.my.horizontal="center" position.my.vertical="bottom"
-          position.at.horizontal="center" position.at.vertical="bottom"
-          position.of="window" position.offset.y="-10"
-          modality="modal" on-oj-animate-start="[[startAnimationListener]]">
-            <div class="demo-popup-body">
-              <div class="demo-popup-header"><h5>The Gettysburg Address</h5></div>
-              
-              
-            <div class="demo-popup-footer">
-              <oj-button id="btnCancel"  on-oj-action="[[cancelListener]]">
-                Cancel
-              </oj-button>
-            </div>
-          </div>    
+<!-- Delete icon button-->
+  <oj-button chroming="borderless" id='solidPushIcon' class="delete-button" display="icons">
+    <span slot='startIcon' class="oj-fwk-icon oj-fwk-icon-cross02 delete-button-icon"></span>
+    Delete Book
+  </oj-button>
+
+<!--Pop-up Loan section -->
+  <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+
+    <div id="popupWrapper">
+      <oj-popup id="popup1" 
+                class="demo-popup" 
+                tail="none" 
+                position.my.horizontal="center" 
+                position.my.vertical="bottom"
+                position.at.horizontal="center" 
+                position.at.vertical="bottom" 
+                position.of="window" 
+                position.offset.y="-10"
+                modality="modal" 
+                on-oj-animate-start="[[startAnimationListener]]">
+        <div class="demo-popup-body">
+          <div class="demo-popup-header">
+            <h5>Your Loans</h5>
+          </div>
+            <p>Book loans come here</p>
+          <div class="demo-popup-footer">
+            <oj-button id="btnCancel" on-oj-action="[[cancelListener]]">
+              Print Loans
+            </oj-button>
+          </div>
+        </div>
       </oj-popup>
       <oj-button id="btnGo" on-oj-action="[[openListener]]">Loan
         <span slot="startIcon" class="demo-icon-font demo-library-icon-24 "></span>
-      </oj-button> 
-    
-    </div>
-
-  <div class="book-title">
-    <oj-bind-text value="[[title]]"></oj-bind-text>
+      </oj-button>
+    </div>  
   </div>
 
-  <span id="bookId" style="display: none;">
-    <oj-bind-text value="[[bookId]]"></oj-bind-text>
-  </span>
-  <span>
-    <img class="book-image" :src="[[smallThumbnail]]" />
-  </span>
-  <div style="text-align: center; margin-top: 1px">
-    <span class="book-heading">Authors: </span>
-    <oj-bind-for-each data="[[authors]]">
+<!--Book information in the tile-->
+    <div class="book-title">
+      <oj-bind-text value="[[title]]"></oj-bind-text>
+    </div>
 
-      <template>
-        <oj-bind-text value="[[$current.data]]"></oj-bind-text>
-      </template>
-    </oj-bind-for-each>
-    <br />
-    <oj-bind-if test="[[categories !== undefined]]">
-      <span class="book-heading">Categories:</span>
-      <oj-bind-for-each data="[[categories]]">
+    <span id="bookId" style="display: none;">
+      <oj-bind-text value="[[bookId]]"></oj-bind-text>
+    </span>
 
+    <span>
+      <img class="book-image" :src="[[smallThumbnail]]" />
+    </span>
+
+    <div style="text-align: center; margin-top: 1px">
+      <span class="book-heading">Authors: </span>
+      <oj-bind-for-each data="[[authors]]">
         <template>
           <oj-bind-text value="[[$current.data]]"></oj-bind-text>
         </template>
       </oj-bind-for-each>
-    </oj-bind-if>
 
-  </div>
+      <br />
 
+      <oj-bind-if test="[[categories !== undefined]]">
+        <span class="book-heading">Categories:</span>
+        <oj-bind-for-each data="[[categories]]">
+            <template>
+              <oj-bind-text value="[[$current.data]]"></oj-bind-text>
+            </template>
+        </oj-bind-for-each>
+      </oj-bind-if>
+    </div>
 </div>

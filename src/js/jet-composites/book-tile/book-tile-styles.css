@@ -35,8 +35,6 @@ book-tile:not(.oj-complete){
 	margin-bottom: 4px;
   }
 
-
-
 .book-heading {
 	margin-bottom: 10px;
 	text-align: left;
@@ -57,6 +55,14 @@ book-tile:not(.oj-complete){
     max-height: 25px;
     max-width: 100px;
     margin-left: 90px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 6px 12px;
+}
+
+#btnCancel {
+	display: flex;
+    max-height: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 6px 12px;

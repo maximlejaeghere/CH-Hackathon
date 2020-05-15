@@ -27,7 +27,7 @@ define(
       self.categories = ko.observable([]);
       self.bookId = ko.observable("");
       
-     var busyContext = Context.getContext(context.element).getBusyContext();
+      var busyContext = Context.getContext(context.element).getBusyContext();
       var options = { "description": "Web Component Startup - Waiting for data" };
       self.busyResolve = busyContext.addBusyState(options);
       self.composite = context.element;
