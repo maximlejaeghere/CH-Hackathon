@@ -10,7 +10,7 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
   'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils', 'ojs/ojarraydataprovider','ctb-oda/loader'],
   function (AnimationUtils, ko, bookService, Bootstrap) {
 
-    function AboutViewModel() {
+    function BooksViewModel() {
 
       var self = this;
       self.clickedButton = function () {
@@ -32,7 +32,41 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
 
         });
       }
+      
       self.books = ko.observableArray([]);
+
+      self.addLoanBooks = function(title) {
+
+        bookService.addBooksLoan(title).then(data => {
+            
+          if (data.length > 0) {
+            data.forEach(item => {
+              self.loanBooks.push(item);
+            });
+          }
+  
+        });
+      }
+
+      self.loanBooks = ko.observableArray([]);
+
+      self.startAnimationListener = function (event) {
+        var ui = event.detail;
+        if (event.target.id !== 'popup1') { return; }
+
+        if (ui.action === 'open') {
+          event.preventDefault();
+          var options = { direction: 'top' };
+          AnimationUtils.slideIn(ui.element, options).then(ui.endCallback);
+        } else if (ui.action === 'close') {
+          event.preventDefault();
+          ui.endCallback();
+        }
+      };
+      this.cancelListener = function () {
+        var popup = document.getElementById('popup1');
+        popup.close();
+      };
 
 
 
@@ -63,16 +97,10 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
         return true;
       }.bind(this);
 
+      
+
      
 
-      /**
-       * Optional ViewModel method invoked after the View is inserted into the
-       * document DOM.  The application can put logic that requires the DOM being
-       * attached here.
-       * This method might be called multiple times - after the View is created
-       * and inserted into the DOM and after the View is reconnected
-       * after being disconnected.
-       */
       self.connected = function () {
         // Implement if needed
       };
@@ -98,6 +126,6 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
      * each time the view is displayed.  Return an instance of the ViewModel if
      * only one instance of the ViewModel is needed.
      */
-    return new AboutViewModel();
+    return new BooksViewModel();
   }
 );
