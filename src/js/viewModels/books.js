@@ -65,14 +65,6 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
 
      
 
-      /**
-       * Optional ViewModel method invoked after the View is inserted into the
-       * document DOM.  The application can put logic that requires the DOM being
-       * attached here.
-       * This method might be called multiple times - after the View is created
-       * and inserted into the DOM and after the View is reconnected
-       * after being disconnected.
-       */
       self.connected = function () {
         // Implement if needed
       };
