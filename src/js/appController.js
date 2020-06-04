@@ -56,18 +56,23 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
 
       
       // Navigation setup
-      var navData = [
-        {name: 'Books', id: 'books',
+      var navDataAdmin = [
+      {name: 'Books', id: 'books',
         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
        {name: 'Add Book', id: 'scanBook',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
-       {name: 'Loaned Books', id: 'loanedBooks',
-        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
       ];
+
+      var navDataStudent = [
+        {name: 'Books', id: 'books',
+          iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
+         {name: 'Loaned Books', id: 'loanedBooks',
+          iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
+        ];
       self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
 
       // User Info used in Global Navigation area
-      self.userLogin = ko.observable("");
+      self.userLogin = ko.observable("Maxim Lejaeghere");
       //self.toolBarDisplay = ko.observable("smScreen() ? 'icons' : 'all'");
       self.menuDisabeled = ko.observable("true");
 
@@ -81,6 +86,63 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
         new footerLink('About Oracle', 'aboutOracle', 'http://www.oracle.com/us/corporate/index.html#menu-about'),
       ]);
      }
+
+     self.user = ko.observable();
+      //Hide or show navigation
+      self.hideNav = function(){
+        $("#navlistcontainer").css("display", "none");
+        $("#logoutButton").css("display", "none");
+      };
+      self.showNav = function(){
+        $("#navlistcontainer").css("display", "block");
+        $("#logoutButton").css("display", "block");
+      };
+// function for when the app starts if logged in or not and wher to navigate
+      function whenDocumentReady(){
+        
+        if(sessionStorage.user){
+          self.showNav();
+          self.user(JSON.parse(sessionStorage.getItem('user')));
+          if(self.user().isAdmin === true){
+            console.log("admin");
+            oj.Router.rootInstance.go('eventOverview');
+          }
+          else if (self.user().isAdmin === false){
+            console.log("Volunteer");
+            oj.Router.rootInstance.go('task');
+          }
+        }
+        else{
+          self.hideNav();
+          oj.Router.rootInstance.go('books');
+        }
+      };
+      $(document).ready(whenDocumentReady);
+// function for the navigation possibilities admin and volunteer
+      self.user.subscribe(function(newValue){
+        self.showNav();
+
+        if(self.user().isAdmin === true){
+          self.navData(navDataAdmin);
+        }
+        else if (self.user().isAdmin === false){
+          self.navData(navDataStudent);
+        }
+        else{
+        };
+
+        
+        
+      });
+      // function for the logout 
+      this.buttonLogoutClick = function(event) {
+        self.user("");
+        whenDocumentReady();
+        sessionStorage.removeItem('user');
+        oj.Router.rootInstance.go('books');
+      };
+     
+
 
      return new ControllerViewModel();
   }

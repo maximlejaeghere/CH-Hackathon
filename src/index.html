@@ -51,17 +51,15 @@
               <oj-menu-button id="userMenu"  display="[[smScreen() ? 'icons' : 'all']]" </oj-menu-button>
                 <span><oj-bind-text value="[[userLogin]]"></oj-bind-text></span>
                 <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
-                <oj-menu id="menu1" slot="menu" style="display:none" 	disabled="[[menuDisabeled]]">
-                  <oj-option id="pref" value="pref">Preferences</oj-option>
-                  <oj-option id="help" value="help">Help</oj-option>
-                  <oj-option id="about" value="about">About</oj-option>
-                  <oj-option id="out" value="out">Logout</oj-option>
+                <oj-menu id="menu1" slot="menu" style="display:none">
+                  <oj-option id="myBooks" value="myBooks">My Books</oj-option>
+                  <oj-option id="out" value="out" on-oj-action='[[buttonClick]]'>Logout </oj-option>
                 </oj-menu>
               </oj-menu-button>
             </oj-toolbar>
           </div>
         </div>
-        <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar" >
+        <div role="navigation" class="oj-web-applayout-max-width oj-web-applayout-navbar" id="navlistcontainer">
           <oj-navigation-list id="navList" data="[[navDataProvider]]"
                               :class="[[{'oj-md-condense oj-md-justify-content-flex-end': !smScreen()}]]"
                               display="[[smScreen() ? 'icons' : 'all']]"
