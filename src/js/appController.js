@@ -33,9 +33,10 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
        // Router setup
        self.router = Router.rootInstance;
        self.router.configure({
-        'books': {label: 'Books', isDefault: true},
+        'books': {label: 'Books'},
         'scanBook': {label: 'Scan Book'},
         'loanedBooks': {label: 'Loaned Books'},
+        'loginScreen': {label: 'Login Screen', isDefault: true}
        });
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
 
@@ -49,6 +50,11 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
         });
       };
 
+       
+      
+
+
+      
       // Navigation setup
       var navData = [
         {name: 'Books', id: 'books',
@@ -60,11 +66,10 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
       ];
       self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
 
-      // Header
-      // Application Name used in Branding Area
-      self.appName = ko.observable("Christel House Hack-A-Thon");
       // User Info used in Global Navigation area
-      self.userLogin = ko.observable("john.hancock@oracle.com");
+      self.userLogin = ko.observable("");
+      //self.toolBarDisplay = ko.observable("smScreen() ? 'icons' : 'all'");
+      self.menuDisabeled = ko.observable("true");
 
       // Footer
       function footerLink(name, id, linkTarget) {
@@ -74,10 +79,6 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
       }
       self.footerLinks = ko.observableArray([
         new footerLink('About Oracle', 'aboutOracle', 'http://www.oracle.com/us/corporate/index.html#menu-about'),
-        new footerLink('Contact Us', 'contactUs', 'http://www.oracle.com/us/corporate/contact/index.html'),
-        new footerLink('Legal Notices', 'legalNotices', 'http://www.oracle.com/us/legal/index.html'),
-        new footerLink('Terms Of Use', 'termsOfUse', 'http://www.oracle.com/us/legal/terms/index.html'),
-        new footerLink('Your Privacy Rights', 'yourPrivacyRights', 'http://www.oracle.com/us/legal/privacy/index.html')
       ]);
      }
 
