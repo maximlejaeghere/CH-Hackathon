@@ -1,0 +1,29 @@
+<!--
+ Copyright (c) 2014, 2019, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+ <div class="oj-hybrid-padding">
+    <h1 style= "color: #F6A91B; font-size: 24px; font-family: 'Trebuchet MS', sans-serif;">Books Library</h1>
+  
+    <div>
+      <div class="cutom-button" style="width:200px; color: #D1D2D4; font-size: 18px; font-family: 'Trebuchet MS', sans-serif;">Search </div>
+    </br>
+    <oj-form-layout max-columns='4' label-edge='start' label-width="50%">
+  
+      <oj-bind-for-each data="[[books]]">
+  
+        <template>
+          <oj-bind-if test="[[$current.data !== null]]">
+            <book-tile book="[[$current.data]]"></book-tile>
+          </oj-bind-if>
+          <oj-bind-if test="[[$current.data === null]]">
+            <span>No volume found for the ISBN number.</span>
+          </oj-bind-if>
+        </template>
+  
+      </oj-bind-for-each>
+    </oj-form-layout>
+  
+    </div>
+    <ctb-oda url="oda-fd3ae918721a44eb94c8c3a284c13234-da4.data.digitalassistant.oci.oraclecloud.com" channel-id= "49f5948b-2707-4cc0-9f0a-b5444f22d63e"></ctb-oda>
+  </div>
