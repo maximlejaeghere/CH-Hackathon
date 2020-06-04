@@ -17,6 +17,7 @@ define(
         if (properties.book) {
           self.updateBook(properties.book);
         }
+
       });
 
       self.title = ko.observable("No Title");
@@ -30,10 +31,19 @@ define(
       self.busyResolve = busyContext.addBusyState(options);
       self.composite = context.element;
 
+
+      //Example observable
+
+         this.deleteBook = function (event) {
+         event.currentTarget.parentElement.parentElement.dispatchEvent(this.deleteEvent);
+         return true;
+        }.bind(this);
+
       this.deleteBook = function (event) {
         event.currentTarget.parentElement.parentElement.dispatchEvent(this.deleteEvent);
         return true;
       }.bind(this);
+
 
       self.properties = context.properties;
       self.res = componentStrings['book-tile'];
