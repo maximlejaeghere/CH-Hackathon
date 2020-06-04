@@ -35,6 +35,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
        self.router.configure({
         'books': {label: 'Books', isDefault: true},
         'scanBook': {label: 'Scan Book'},
+        'loanedBooks': {label: 'Loaned Books'},
        });
       Router.defaults['urlAdapter'] = new Router.urlParamAdapter();
 
@@ -50,10 +51,12 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
 
       // Navigation setup
       var navData = [
-      {name: 'Books', id: 'books',
+        {name: 'Books', id: 'books',
         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
        {name: 'Add Book', id: 'scanBook',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
+       {name: 'Loaned Books', id: 'loanedBooks',
+        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
       ];
       self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
 

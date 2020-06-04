@@ -4,8 +4,8 @@
 */
 'use strict';
 define(
-  ['ojs/ojanimation','knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'ojs/ojknockout','ojs/ojbutton', 'ctb-oda/loader' ], 
-  function (AnimationUtils, ko, componentStrings, Context) {
+  ['ojs/ojanimation', 'knockout', 'ojL10n!./resources/nls/book-tile-strings', 'ojs/ojcontext', 'services/book-service', 'ojs/ojpopup','ojs/ojknockout', 'ojs/ojbutton', 'ctb-oda/loader'],
+  function (AnimationUtils, ko, componentStrings, Context, bookService) {
 
     function BookTileComponentModel(context) {
       var self = this;
@@ -16,7 +16,8 @@ define(
 
         if (properties.book) {
           self.updateBook(properties.book);
-        }       
+        }
+
       });
 
       self.title = ko.observable("No Title");
@@ -24,11 +25,12 @@ define(
       self.smallThumbnail = ko.observable("");
       self.categories = ko.observable([]);
       self.bookId = ko.observable("");
-      
+
       var busyContext = Context.getContext(context.element).getBusyContext();
       var options = { "description": "Web Component Startup - Waiting for data" };
       self.busyResolve = busyContext.addBusyState(options);
       self.composite = context.element;
+
 
       //Example observable
 
@@ -37,6 +39,12 @@ define(
          return true;
         }.bind(this);
 
+      this.deleteBook = function (event) {
+        event.currentTarget.parentElement.parentElement.dispatchEvent(this.deleteEvent);
+        return true;
+      }.bind(this);
+
+
       self.properties = context.properties;
       self.res = componentStrings['book-tile'];
       self.busyResolve();
@@ -44,7 +52,7 @@ define(
       this.startAnimationListener = function (event) {
         var ui = event.detail;
         if (event.target.id !== 'popup1') { return; }
-  
+
         if (ui.action === 'open') {
           event.preventDefault();
           var options = { direction: 'top' };
@@ -54,8 +62,11 @@ define(
           ui.endCallback();
         }
       };
+
       this.openListener = function () {
+        //bookService.addBooksLoan(self.title);
         var popup = document.getElementById('popup1');
+        console.log(popup);
         popup.open('#btnGo');
       };
       this.cancelListener = function () {
@@ -66,13 +77,13 @@ define(
 
     };
 
-    BookTileComponentModel.prototype.updateBook = function(book) {
-      this.bookId (book._id);
+    BookTileComponentModel.prototype.updateBook = function (book) {
+      this.bookId(book._id);
       this.title(book.title);
       this.smallThumbnail(book.imageLinks.smallThumbnail);
       this.authors(book.authors);
       if (book.categories)
-      this.categories(book.categories);
+        this.categories(book.categories);
     }
 
     //Lifecycle methods - uncomment and implement if necessary 

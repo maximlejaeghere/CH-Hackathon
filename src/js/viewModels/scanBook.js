@@ -25,6 +25,22 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
 
             }
 
+            self.scanClick = function(event){
+                console.log("test");
+                cordova.plugins.barcodeScanner.scan(
+                    function (result) {
+                        self.isbn(result.text);
+                        alert("We got a barcode\n" +
+                              "Result: " + result.text + "\n" +
+                              "Format: " + result.format + "\n" +
+                              "Cancelled: " + result.cancelled);
+                    },
+                    function (error) {
+                        alert("Scanning failed: " + error);
+                    }
+                );
+              }
+
             self.hasBook = ko.observable(false);
             self.scannedBook = ko.observable({ title: null, authors: [], imageLinks: { smallThumbnail: "" } }).extend({ 'notify': 'always' });
             self.isbn = ko.observable();

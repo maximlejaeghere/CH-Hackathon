@@ -41,6 +41,23 @@ define([], function () {
 
         },
 
+        addBooksLoan(title) {
+            let loan = [];
+            if (title)
+                loan.push(`title=${title}`);
+            let queryParams = search.join("&");
+            if (loan.length > 0) {
+                let url = `${this.baseUrl}/searchBook?${queryParams}`;
+                return fetch(url).then((response) => {
+                    return response.json();
+                });
+            }
+            else {
+                return this.getBooks();
+            }
+
+        },
+
         deleteBook(id) {
             let url = `${this.baseUrl}/deleteBook`;
             return fetch(url, {

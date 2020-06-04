@@ -9,11 +9,13 @@
       <oj-input-text value="{{isbn}}" id="text-input" style="margin-top: 20px; margin-bottom: 12px;"></oj-input-text>
       <br />
       <oj-bind-if test="[[hasBook() == true]]">
-         <book-tile on-oj-action='[[buttonClick]]' book="{{scannedBook}}"></book-tile> 
+         <book-tile book="{{scannedBook}}"></book-tile> 
       </oj-bind-if>
        <oj-bind-if test="[[hasBook() == false]]">
         <span style="width:200px; color: #D1D2D4; font-size: 14px; font-family: 'Trebuchet MS', sans-serif;">No volume found for the ISBN number.</span>
       </oj-bind-if> 
 
-      
+      <br>
+      <oj-button id='b1Scan' on-oj-action='{{scanClick}}' label='Scan' style="margin-top: 50px; width: 100px;" >Scan here</oj-button>
+
     </div>
