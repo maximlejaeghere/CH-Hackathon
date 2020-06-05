@@ -13,9 +13,6 @@ define([], function () {
         },
 
         addBook(book) {
-
-
-
         },
 
         searchBooks(title, authors, description, categories) {
