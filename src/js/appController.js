@@ -95,11 +95,11 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       //Hide or show navigation
       self.hideNav = function(){
         $("#navlistcontainer").css("display", "none");
-        $("#logoutButton").css("display", "none");
+        $("#header-flex-bar").css("display", "none");
       };
       self.showNav = function(){
         $("#navlistcontainer").css("display", "block");
-        $("#logoutButton").css("display", "block");
+        $("#header-flex-bar").css("display", "block");
       };
 // function for when the app starts if logged in or not and wher to navigate
       function whenDocumentReady(){
@@ -143,7 +143,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         self.user("");
         whenDocumentReady();
         sessionStorage.removeItem('user');
-        oj.Router.rootInstance.go(loginScreen);
+        oj.Router.rootInstance.go('loginScreen');
       };
      
 
