@@ -26,6 +26,9 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
           }, 200);
         };
 
+        // Global Variables
+        self.loanBooks = ko.observableArray([]);
+
       // Media queries for repsonsive layouts
       var smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
       self.smScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);

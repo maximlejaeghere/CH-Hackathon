@@ -1,26 +1,24 @@
 <div class="book-block">
 
 <!-- Delete icon button-->
-<div class = "delete-button">
+<!-- <div class = "delete-button">
   <oj-button chroming="borderless" id='solidPushIcon' class="delete-button" display="icons" on-oj-action="[[deleteBook]]">
     <span slot='startIcon' class="oj-fwk-icon oj-fwk-icon-cross02 delete-button-icon"></span>
     Delete Book
   </oj-button>
-</div>  
+</div>   -->
 
-<!--Pop-up Loan section -->
- <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
-
-    <div id="popupWrapper">
-    
-      <oj-button id="btnGo" on-oj-action="[[openListener]]">Loan
-        <span slot="startIcon" class="demo-icon-font demo-library-icon-24 "></span>
-      </oj-button>
-    </div>  
-  </div> 
 
 <!--Book information in the tile-->
-    <div class="book-title">
+
+  <span>
+    <oj-button id="btnGo">Available
+      <span slot="startIcon" class="demo-icon-font demo-library-icon-24 "></span>
+    </oj-button>
+  </span>
+
+<div class="oj flex oj-lg-align-items-center">
+    <div class="book-title" style= "font-weight: 800;">
       <oj-bind-text value="[[title]]"></oj-bind-text>
     </div>
 
@@ -50,5 +48,9 @@
             </template>
         </oj-bind-for-each>
       </oj-bind-if>
+
+     
+
+    </div>
     </div>
 </div>

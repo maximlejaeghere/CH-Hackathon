@@ -3,10 +3,11 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <div class="oj-hybrid-padding"> <!-- Main div-->
-  <h1 style= "color: #F6A91B; font-size: 24px; font-family: 'Trebuchet MS', sans-serif;">Books Library</h1>
+  <h1 style= "color: #F6A91B; font-size: 26px; font-family: 'Trebuchet MS', sans-serif;" >Books Library</h1>
 
   <div class="oj-flex oj-flex-init"> <!-- Parent container -->
-    <div class="oj-flex-item oj-panel oj-panel-alt2"> <!-- Child Container Search -->
+    <div class="oj-flex oj-flex-item" style="margin: 20px;"> <!--Parent Container 2-->
+    <div class="oj-flex-item"> <!-- Child Container Search -->
       <div class="cutom-button" style="width:200px; color: #D1D2D4; font-size: 18px; font-family: 'Trebuchet MS', sans-serif;">Search </div>
       </br>
 
@@ -36,17 +37,39 @@
           <oj-button id='Search' disabled="false" on-oj-action='[[buttonClick]]' display="all" >Search</oj-button>
         </div>
       </oj-form-layout>
+      <!-- Child Container TextBlock -->
+      <div class="oj-flex-item oj-panel oj-panel-alt2" 
+           style="height: auto; margin: 10px 10px 0px 0px; box-shadow: 5px 10px #888888; border-radius: 10px;"> 
+           <h5>Book Overview</h5>
+           <oj-list-view id="listview" aria-label="simple list" data="[[dataProviderLoanBooks]]">
+            <template slot="itemTemplate" data-oj-as="item" style="overflow: hidden;">
+              <span>
+                <img class="book-image" :src="[[item.data.data.imageLinks.smallThumbnail]]" style="max-width: 10%; height: auto; display: flex;"/>
+              </span>
+               <div class="container">
+                    <div>
+                        <span class="name"><oj-bind-text value="[[item.data.data.title]]"></oj-bind-text></span>
+                    </div>
+                    <div>
+                        <span class="oj-text-xs oj-text-secondary-color"><oj-bind-text value="[[item.data.data.authors]]"></oj-bind-text></span>
+                    </div>
+                </div>
+            </template>
+        </oj-list-view>  
+        
+        <oj-button id='Confirm' disabled="false" on-oj-action='[[buttonClick]]' display="all" style="margin-top: 20px; border-radius: 10px;">Reserve</oj-button>
+      </div> <!-- End Child Container TextBlock -->    
     </div> <!-- End Child Container Search -->
+  </div> <!-- End Parent Container 2-->
 
-  <div class="oj-flex oj-flex-item"> <!--Parent Container 2-->
-    <div class="oj-flex-item oj-panel oj-panel-alt4" > <!-- Child Container Booktile -->
-    <oj-form-layout max-columns='3' label-edge='start' label-width="50%">
+ 
+    <oj-form-layout max-columns='3' label-edge='start' label-width="50%" style="margin-top: 40px;">
 
       <oj-bind-for-each data="[[books]]">
 
         <template>
           <oj-bind-if test="[[$current.data !== null]]">
-            <book-tile book="[[$current.data]]" ></book-tile>
+            <book-tile book="[[$current.data]]" on-oj-action="[[addBookToLoanBooks]]"></book-tile>
           </oj-bind-if>
           <oj-bind-if test="[[$current.data === null]]">
             <span>No volume found for the ISBN number.</span>
@@ -55,13 +78,6 @@
 
       </oj-bind-for-each>
     </oj-form-layout>
-    </div> <!-- End Child Container Booktile -->
-
-    <div class="oj-flex-item oj-panel oj-panel-alt3"> <!-- Child Container TextBlock -->
-
-
-    </div> <!-- End Child Container TextBlock -->
-  </div> <!-- End Parent Container 2-->
 
   </div>
     <ctb-oda url="oda-fd3ae918721a44eb94c8c3a284c13234-da4.data.digitalassistant.oci.oraclecloud.com" channel-id= "49f5948b-2707-4cc0-9f0a-b5444f22d63e"></ctb-oda>

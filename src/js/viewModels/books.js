@@ -6,13 +6,18 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojpopup', 'ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojinputtext', 'book-tile/loader',
-  'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils', 'ojs/ojarraydataprovider','ctb-oda/loader'],
-  function (AnimationUtils, ko, bookService, Bootstrap) {
+define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'appController', 'ojs/ojknockout', 'ojs/ojlistview', 'ojs/ojbutton', 'ojs/ojinputtext', 'book-tile/loader',
+  'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils','ctb-oda/loader'],
+  function (ko, bookService, Bootstrap, ArrayDataProvider, app) {
 
     function BooksViewModel() {
 
+    
+    
+
       var self = this;
+
+      
       self.clickedButton = function () {
 
         self.books.removeAll();
@@ -35,38 +40,29 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
       
       self.books = ko.observableArray([]);
 
-      self.addLoanBooks = function(title) {
+      
 
-        bookService.addBooksLoan(title).then(data => {
-            
-          if (data.length > 0) {
-            data.forEach(item => {
-              self.loanBooks.push(item);
-            });
-          }
-  
-        });
+      self.dataProviderLoanBooks = new ArrayDataProvider(app.loanBooks, { keyAttributes: '_id' });
+
+      self.addBookToLoanBooks = function(event, data, bindingContext){
+        console.log(event);
+        console.log(data);
+        console.log(bindingContext)
+        app.loanBooks.push(data);
+        console.log(app.loanBooks());
+        console.log(self.dataProviderLoanBooks);
       }
+      /* self.removeBookFromLoanBooks = function(data){
+        for
+      } */
 
-      self.loanBooks = ko.observableArray([]);
+      // data.forEach(item)
+      //     if (data.forEach(item => x._id == data._id)){
 
-      self.startAnimationListener = function (event) {
-        var ui = event.detail;
-        if (event.target.id !== 'popup1') { return; }
-
-        if (ui.action === 'open') {
-          event.preventDefault();
-          var options = { direction: 'top' };
-          AnimationUtils.slideIn(ui.element, options).then(ui.endCallback);
-        } else if (ui.action === 'close') {
-          event.preventDefault();
-          ui.endCallback();
-        }
-      };
-      this.cancelListener = function () {
-        var popup = document.getElementById('popup1');
-        popup.close();
-      };
+      //     }
+      //     else{
+      //       app.loanBooks.push(data);
+      //     }
 
 
 
