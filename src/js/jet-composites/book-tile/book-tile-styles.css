@@ -48,12 +48,12 @@
 }
 
 #btnGo {
-    display: flex;
-    max-height: 25px;
-    max-width: 100px;
-    margin-left: 90px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+	text-align: center;
+    min-height: 25px;
+    min-width: 100px;
+    margin-left: 85px;
+    margin-top: 10px;
+	margin-bottom: 10px;
     padding: 6px 12px;
 }
 
