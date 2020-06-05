@@ -7,9 +7,9 @@
     </div>
     <div>
         <oj-label style="font-size:25px; color: white;" for="username" >Username </oj-label>
-        <oj-input-text label-hint="enabled" id="username" value="[[username]]" style="width: 20%;"></oj-input-text>
+        <oj-input-text label-hint="enabled" id="username" value="{{username}}" style="width: 20%;"></oj-input-text>
         <oj-label style="font-size:25px; color: white;" ;" for="password">Password </oj-label>
-        <oj-input-password id="password" value="[[password]]" style="width: 20%;">
+        <oj-input-password id="password" value="{{password}}" style="width: 20%;">
         </oj-input-password>
         <br>
         <br>
@@ -24,7 +24,7 @@
             </span>
         </oj-button>
         <oj-input-text label-hint="readonly no value" readonly="true"></oj-input-text>
-        <oj-button class="oj-button-lg" on-oj-action='[[loginClick]]' style="width: 10%; margin-left: 45%; margin-right: 45%">
+        <oj-button class="oj-button-lg" style="width: 10%; margin-left: 45%; margin-right: 45%">
             <span>
                 <oj-bind-text></oj-bind-text> Sign Up
             </span>

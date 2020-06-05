@@ -20,7 +20,7 @@ define(['accUtils','knockout','appController', 'ojs/ojbootstrap', 'ojs/ojrespons
         $.getScript('js/md5.js', function(){
            st = b64_md5(self.password());
         //Wachtwoord = Hallo
-         if (st === "0b+TKZ3hto5tOCyJO/EhXw" && self.username() === "Maxim"){
+        if (st === "0b+TKZ3hto5tOCyJO/EhXw" && self.username() === "Maxim"){
           app.user({ AdminId: '01', FirstName: 'Maxim', LastName: 'Lejaeghere', PhoneNumber: '0474/61.42.44', Email: 'mlejaeghere@gmail.com', isAdmin : true });
           sessionStorage.setItem('user', JSON.stringify(app.user()));
           oj.Router.rootInstance.go('books');
