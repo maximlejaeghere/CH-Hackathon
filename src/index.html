@@ -53,7 +53,7 @@
                 <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
                 <oj-menu id="menu1" slot="menu" style="display:none">
                   <oj-option id="myBooks" value="myBooks">My Books</oj-option>
-                  <oj-option id="out" value="out" on-oj-action='[[buttonClick]]'>Logout </oj-option>
+                  <oj-option id="out" value="out" on-oj-action='[[buttonLogoutClick]]'>Logout </oj-option>
                 </oj-menu>
               </oj-menu-button>
             </oj-toolbar>

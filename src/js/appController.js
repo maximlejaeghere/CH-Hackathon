@@ -7,8 +7,9 @@
 /*
  * Your application specific code will go here
  */
-define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojrouter', 'ojs/ojarraydataprovider', 'ojs/ojknockouttemplateutils', 'ojs/ojmodule-element', 'ojs/ojknockout'],
-  function(ko, moduleUtils, ResponsiveUtils, ResponsiveKnockoutUtils, Router, ArrayDataProvider, KnockoutTemplateUtils) {
+define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils', 'ojs/ojrouter', 'ojs/ojresponsiveutils', 'ojs/ojresponsiveknockoututils', 'ojs/ojarraydataprovider',
+'ojs/ojoffcanvas','ojs/ojbootstrap','ojs/ojnavigationlist','ojs/ojradioset','ojs/ojswitch', 'ojs/ojmodule-element','ojs/ojknockout', 'ojs/ojbutton', 'ojs/ojcheckboxset'],
+  function(ko, moduleUtils, KnockoutTemplateUtils, Router, ResponsiveUtils, ResponsiveKnockoutUtils, ArrayDataProvider, OffcanvasUtils, Bootstrap) {
      function ControllerViewModel() {
         var self = this;
 
@@ -17,12 +18,20 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
         // Handle announcements sent when pages change, for Accessibility.
         self.manner = ko.observable('polite');
         self.message = ko.observable();
+        self.waitForAnnouncement = false;
+        self.navDrawerOn = false;
+
         document.getElementById('globalBody').addEventListener('announce', announcementHandler, false);
 
+
         function announcementHandler(event) {
+          self.waitForAnnouncement = true;
           setTimeout(function() {
             self.message(event.detail.message);
             self.manner(event.detail.manner);
+            if(!self.waitForAnnouncement){
+              self.waitForAnnouncement = false;
+            }
           }, 200);
         };
 
@@ -50,31 +59,26 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
         });
       };
 
-       
-      
-
-
-      
       // Navigation setup
       var navDataAdmin = [
       {name: 'Books', id: 'books',
         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
        {name: 'Add Book', id: 'scanBook',
-       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
-      ];
+       iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'}];
 
-      var navDataStudent = [
-        {name: 'Books', id: 'books',
-          iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
-         {name: 'Loaned Books', id: 'loanedBooks',
-          iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
-        ];
-      self.navDataProvider = new ArrayDataProvider(navData, {keyAttributes: 'id'});
+     var navDataStudent = [
+       {name: 'Books', id: 'books',
+        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'},
+      {name: 'Loaned Books', id: 'loanedBooks',
+        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'}];
+
+      self.navData = ko.observableArray(navDataAdmin);
+      self.navDataProvider = new ArrayDataProvider(self.navData, {keyAttributes: '_id'});
 
       // User Info used in Global Navigation area
       self.userLogin = ko.observable("Maxim Lejaeghere");
       //self.toolBarDisplay = ko.observable("smScreen() ? 'icons' : 'all'");
-      self.menuDisabeled = ko.observable("true");
+      self.menuDisabeled = ko.observable("false");
 
       // Footer
       function footerLink(name, id, linkTarget) {
@@ -114,7 +118,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
         }
         else{
           self.hideNav();
-          oj.Router.rootInstance.go('books');
+          oj.Router.rootInstance.go('loginScreen');
         }
       };
       $(document).ready(whenDocumentReady);
@@ -139,7 +143,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojresponsiveutils', 'ojs/
         self.user("");
         whenDocumentReady();
         sessionStorage.removeItem('user');
-        oj.Router.rootInstance.go('books');
+        oj.Router.rootInstance.go(loginScreen);
       };
      
 
