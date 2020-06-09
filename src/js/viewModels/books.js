@@ -12,9 +12,6 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
 
     function BooksViewModel() {
 
-    
-    
-
       var self = this;
 
       
