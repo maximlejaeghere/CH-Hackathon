@@ -72,6 +72,10 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
           iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'
         },
         {
+          name: 'Loaned Books', id: 'loanedBooks',
+          iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'
+        },
+        {
           name: 'Add Book', id: 'scanBook',
           iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'
         }];
@@ -83,6 +87,10 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         },
         {
           name: 'Loaned Books', id: 'loanedBooks',
+          iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'
+        },
+        {
+          name: 'Add Book', id: 'scanBook',
           iconClass: 'oj-navigationlist-item-icon demo-icon-font-24'
         }];
 
@@ -120,12 +128,10 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         self.showNav();
         self.user(JSON.parse(sessionStorage.getItem('user')));
         if (self.user().isAdmin === true) {
-          console.log("admin");
-          oj.Router.rootInstance.go('books');
+         oj.Router.rootInstance.go('books');
         }
         else if (self.user().isAdmin === false) {
-          console.log("Volunteer");
-          oj.Router.rootInstance.go('loanedBooks');
+         oj.Router.rootInstance.go('loanedBooks');
         }
       }
       else {
