@@ -6,18 +6,16 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'appController', 'ojs/ojknockout', 'ojs/ojlistview', 'ojs/ojbutton', 'ojs/ojinputtext', 'book-tile/loader',
+define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'appController', 'ojs/ojknockout', 'ojs/ojlistview', 'ojs/ojbutton', 'ojs/ojinputtext', 'ojs/ojlabel', 'book-tile/loader',
   'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils','ctb-oda/loader'],
   function (ko, bookService, Bootstrap, ArrayDataProvider, app) {
 
     function BooksViewModel() {
 
-    
-    
-
       var self = this;
-      var ids;
-      
+
+      var lastItemId = app.loanBooks().length;
+
       self.clickedButton = function () {
 
         self.books.removeAll();
@@ -41,27 +39,24 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
           }
 
         });
-      }
-      
-      self.books = ko.observableArray([]);
+      } // end clickedButton
 
-      
-
-      self.dataProviderLoanBooks = new ArrayDataProvider(app.loanBooks, { keyAttributes: '_id' });
-
+      // Add books to book overview
       self.addBookToLoanBooks = function(event, data, bindingContext){
-        console.log(event);
-        console.log(data);
-        console.log(bindingContext)
-        app.loanBooks.push(data);
+        //console.log(event);
+        //console.log(data);
+        //console.log(bindingContext)
+        for (let i = 0; i < app.loanBooks.length; i++) {
+          var loanBooks = app.loanBooks[i];
+          
+       
+        }
+        app.loanBooks.push({ id: lastItemId, item: data.data });
+        lastItemId++;
         console.log(app.loanBooks());
         console.log(self.dataProviderLoanBooks);
-
       }
-
-
-
-
+   
       bookService.getBooks().then(data => {
         if (data.length > 0) {
           data.forEach(item => {
@@ -81,17 +76,44 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
         return true;
       }.bind(this);
 
-      this.deleteBook = function (event) {
+      /* this.deleteBook = function (event) {
         let id =  event.currentTarget.book._id;
         bookService.deleteBook(id).then(r => {
           self.books.remove(x => x._id == id)
         });
         return true;
-      }.bind(this);
+      }.bind(this); */
 
-      
+       // Delete book in book overview   
+       self.selectedItems = ko.observableArray([]);
+       
+       self.books = ko.observableArray([]);
+ 
+       self.dataProviderLoanBooks = new ArrayDataProvider(app.loanBooks, { keyAttributes: 'item._id' });
+ 
+       self.removeSelected = function () {  
+         self.selectedItems().forEach(function (id) {  
+           app.loanBooks.remove(function (item) {
+             return (item.id === id);        
+           });
+         }.bind(this));
+       }.bind(this);
 
-     
+       this.currentIndex;
+       this.currentItem = ko.observable('');
+
+       this.handleCurrentItemChanged = function (event) {
+        var key = event.detail.value;
+        var items = app.loanBooks();
+        for (var i = 0; i < items.length; i++) {
+          if (items[i]._id === key) {
+            this.currentIndex = i;
+            this.currentItem(items[i].item);
+            break;
+          }
+        }
+      }
+
 
       self.connected = function () {
         // Implement if needed
