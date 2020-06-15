@@ -43,26 +43,38 @@
         </div>
       </oj-form-layout>
       <!-- Child Container TextBlock -->
+    <div id="listViewContainer">
       <div class="oj-flex-item oj-panel oj-panel-alt2" 
            style="height: auto; margin: 10px 10px 0px 0px; box-shadow: 5px 10px #888888; border-radius: 10px;"> 
            <h5>Book Overview</h5>
-           <oj-list-view id="listview" aria-label="simple list" data="[[dataProviderLoanBooks]]">
+           <oj-list-view id="listview" 
+                         aria-label="simple list" 
+                         data="[[dataProviderLoanBooks]]"
+                         selection-mode="multiple"
+                         selection="{{selectedItems}}"
+                         on-current-item-changed="[[handleCurrentItemChanged]]">
             <template slot="itemTemplate" data-oj-as="item">
-              <span>
+              <!-- <span>
                 <img class="book-image" :src="[[item.data.data.imageLinks.smallThumbnail]]" style="max-width: 10%; height: auto;"/>
-              </span>
+              </span> -->
                <div class="container">
                     <div>
-                        <span class="name"><oj-bind-text value="[[item.data.data.title]]"></oj-bind-text></span>
+                        <span class="name"><oj-bind-text value="[[item.data.item.title]]"></oj-bind-text></span>
                     </div>
                     <div>
-                        <span class="oj-text-xs oj-text-secondary-color"><oj-bind-text value="[[item.data.data.authors]]"></oj-bind-text></span>
+                        <span class="oj-text-xs oj-text-secondary-color"><oj-bind-text value="[[item.data.item.authors]]"></oj-bind-text></span>
                     </div>
                 </div>
             </template>
         </oj-list-view>  
-        
-        <oj-button id='Confirm' disabled="false" on-oj-action='[[buttonClick]]' display="all" style="margin-top: 20px; border-radius: 10px;">Reserve</oj-button>
+
+         <!-- Remove button -->
+         <oj-button id="removeButton" on-oj-action="[[removeSelected]]" style="margin-top: 20px; border-radius: 10px;">Remove</oj-button>
+
+         <oj-button id='Confirm' disabled="false" on-oj-action='[[buttonClick]]' display="all" style="margin-top: 20px; border-radius: 10px;">Reserve</oj-button>
+
+      </div> <!-- End ListContainer -->
+
       </div> <!-- End Child Container TextBlock -->    
     </div> <!-- End Child Container Search -->
   </div> <!-- End Parent Container 2-->
