@@ -16,7 +16,7 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
     
 
       var self = this;
-
+      var ids;
       
       self.clickedButton = function () {
 
@@ -26,6 +26,11 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
         let author = this.author();
         let desc = this.description();
         let categories = this.categories();
+        let id = this.id();
+        
+        if (id !== null){
+          ids.push(id);
+        }
 
         bookService.searchBooks(title, author, desc, categories).then(data => {
             
@@ -51,18 +56,9 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
         app.loanBooks.push(data);
         console.log(app.loanBooks());
         console.log(self.dataProviderLoanBooks);
+
       }
-      /* self.removeBookFromLoanBooks = function(data){
-        for
-      } */
 
-      // data.forEach(item)
-      //     if (data.forEach(item => x._id == data._id)){
-
-      //     }
-      //     else{
-      //       app.loanBooks.push(data);
-      //     }
 
 
 
