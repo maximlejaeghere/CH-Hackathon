@@ -26,7 +26,6 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojknockout'
             }
 
             self.scanClick = function(event){
-                console.log("test");
                 cordova.plugins.barcodeScanner.scan(
                     function (result) {
                         self.isbn(result.text);

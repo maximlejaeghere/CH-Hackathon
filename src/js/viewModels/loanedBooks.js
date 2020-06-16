@@ -39,10 +39,23 @@ define(['ojs/ojanimation','knockout', 'services/book-service', 'ojs/ojbootstrap'
       bookService.getBooks().then(data => {
         if (data.length > 0) {
           data.forEach(item => {
-            self.books.push(item);
+            console.log(item._id);
+            if(item._id == "5ed0bd982b31bc00170985af" || item._id == "5ee7327a2b31bc00170985f4" || item._id == "5ee76c3d2b31bc0017098603"){
+              item.begindate = new Date();
+              self.books.push(item);
+            console.log(item.begindate);
+            }
+            
           });
         }
       });
+
+      //bookService.getBooks().then(data => {
+        //if (data.item._id == "5e6cd98a2b31bc0017098551")
+//{
+  //self.books.push(item);
+//}
+  //    })
 
       self.title = ko.observable("");
       self.author = ko.observable("");

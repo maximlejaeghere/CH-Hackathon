@@ -42,7 +42,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
       // Media queries for repsonsive layouts
       var smQuery = ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY);
       self.smScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);
-
+     
       // Router setup
       self.router = Router.rootInstance;
       self.router.configure({
@@ -95,11 +95,15 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         }];
 
       self.navData = ko.observableArray(navDataAdmin);
-      self.navDataProvider = new ArrayDataProvider(self.navData, { keyAttributes: '_id' });
-
+      self.navDataProvider = new ArrayDataProvider(self.navData, { keyAttributes: 'id' });
+        
       // User Info used in Global Navigation area
       self.userLogin = ko.observable("Maxim Lejaeghere");
-
+// Called by navigation drawer toggle button and after selection of nav drawer item
+self.toggleDrawer = function() {
+  self.navDrawerOn = true;
+  return OffcanvasUtils.toggle(self.drawerParams);
+}
       // Footer
       function footerLink(name, id, linkTarget) {
         this.name = name;
@@ -128,7 +132,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
         self.showNav();
         self.user(JSON.parse(sessionStorage.getItem('user')));
         if (self.user().isAdmin === true) {
-         oj.Router.rootInstance.go('books');
+         //oj.Router.rootInstance.go('books');
         }
         else if (self.user().isAdmin === false) {
          oj.Router.rootInstance.go('loanedBooks');

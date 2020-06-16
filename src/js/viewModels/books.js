@@ -6,30 +6,25 @@
 /*
  * Your about ViewModel code goes here
  */
-define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydataprovider', 'appController', 'ojs/ojknockout', 'ojs/ojlistview', 'ojs/ojbutton', 'ojs/ojinputtext', 'ojs/ojlabel', 'book-tile/loader',
+define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojrouter', 'ojs/ojarraydataprovider', 'appController', 'ojs/ojknockout', 'ojs/ojlistview', 'ojs/ojbutton', 'ojs/ojinputtext', 'ojs/ojlabel', 'book-tile/loader',
   'ojs/ojtable', 'ojs/ojlabelvalue', 'ojs/ojformlayout', 'ojs/ojknockouttemplateutils','ctb-oda/loader'],
-  function (ko, bookService, Bootstrap, ArrayDataProvider, app) {
+  function (ko, bookService, Bootstrap, Router, ArrayDataProvider, app) {
 
     function BooksViewModel() {
 
       var self = this;
-
+ 
       var lastItemId = app.loanBooks().length;
-
+ 
       self.clickedButton = function () {
-
+ 
         self.books.removeAll();
-
+ 
         let title = this.title();
         let author = this.author();
         let desc = this.description();
         let categories = this.categories();
-        let id = this.id();
-        
-        if (id !== null){
-          ids.push(id);
-        }
-
+ 
         bookService.searchBooks(title, author, desc, categories).then(data => {
             
           if (data.length > 0) {
@@ -37,7 +32,7 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
               self.books.push(item);
             });
           }
-
+ 
         });
       } // end clickedButton
 
@@ -71,18 +66,20 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
       self.description = ko.observable("");
 
 
-      this.buttonClick = function (event) {
-        this.clickedButton();
-        return true;
+      this.buttonClickReserved = function (event) {
+        oj.Router.rootInstance.go('loanedBooks');
       }.bind(this);
 
-      /* this.deleteBook = function (event) {
+      
+
+
+      this.deleteBook = function (event) {
         let id =  event.currentTarget.book._id;
         bookService.deleteBook(id).then(r => {
           self.books.remove(x => x._id == id)
         });
         return true;
-      }.bind(this); */
+      }.bind(this); 
 
        // Delete book in book overview   
        self.selectedItems = ko.observableArray([]);
@@ -99,6 +96,12 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
          }.bind(this));
        }.bind(this);
 
+       this.buttonClick = function(event){
+         this.clickedButton();
+         return true;
+         
+       }.bind(this);
+
        this.currentIndex;
        this.currentItem = ko.observable('');
 
@@ -107,6 +110,7 @@ define(['knockout', 'services/book-service', 'ojs/ojbootstrap', 'ojs/ojarraydata
         var items = app.loanBooks();
         for (var i = 0; i < items.length; i++) {
           if (items[i]._id === key) {
+            Console.log("test")
             this.currentIndex = i;
             this.currentItem(items[i].item);
             break;
